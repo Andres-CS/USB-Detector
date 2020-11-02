@@ -12,7 +12,7 @@ function YELLOWTAIL(){
             echo "FLASH DRIVE DETECTED"
             label=$(lsblk -o label,uuid | grep $1 | cut -d " " -f 1)
             name=$(lsblk -i -o name,uuid | grep $1 | cut -d " " -f 1 | cut -d "-" -f 2 )
-            #CHECK IF DEVICES IS MOUNTED
+            #CHECK IF DEVICE IS MOUNTED
             if [ "$(df -h | grep $name | cut -d " " -f 1 | cut -d "/" -f 3)" = "$name" ]
             then 
                 echo "ALREADY MOUNTED"

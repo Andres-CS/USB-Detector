@@ -1,0 +1,2 @@
+SUBSYSTEM=="usb", ACTION=="add", ENV{DEVTYPE}=="usb_device",  RUN+="/home/gato/.bin/usb_added.sh"
+SUBSYSTEM=="usb", ACTION=="remove", ENV{DEVTYPE}=="usb_device", RUN+="/home/gato/.bin/usb_removed.sh"
