@@ -16,27 +16,17 @@ function readFSTAB(){
 
 function addNewDevices(){
     newFlag=false
-    for deviceID in $(lsblk -o uuid | grep -v "UUID")
+    while [ true ]
     do
-        for k in ${!uuids[@]}
+        for deviceID in $(lsblk -i -o name,uuid | egrep -v "*-sda" | egrep "*-sd*" | cut -d " " -f 2)
         do
-            if [ "${uuids[$k]}" == "$deviceID" ]
-            then
-                newFlag=false
-                break
-            else
-                newFlag=true
-            fi
-        done
-        #CHECK newFlag
-        if [ $newFlag == true ]
-        then
+            newFlag=true
             name=$(lsblk -i -o name,uuid| grep $deviceID | cut -d " " -f 1 | cut -d "-" -f 2)
-            uuids[$name]=$deviceID
-            #RESET newFlag
-            newFlag=false
-            echo "USB device $deviceID added at -> $(date)"
-            echo "USB device $deviceID added at -> $(date)" >> "/tmp/usbtracker.log"
+            echo "$(date); USB ADDED; $name -> $deviceID" >> "/tmp/usbtracker.log"
+        done
+        if [ "$newFlag" == "true" ]
+        then
+            break #EXIT WHILE LOOP
         fi
     done
 }
@@ -66,7 +56,4 @@ function YELLOWTAIL(){
 #YELLOWTAIL $myUSB
 
 readFSTAB
-while [ true ]
-do
-    addNewDevices
-done
+addNewDevices

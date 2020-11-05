@@ -1,3 +1,3 @@
 #!/bin/bash
 
-echo "USB device add at $(date)" >> "/tmp/usbtracker.log"
+echo "USB device ADDed at $(date)" >> "/tmp/usbtracker.log"
