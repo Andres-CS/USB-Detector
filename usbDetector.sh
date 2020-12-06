@@ -18,6 +18,7 @@ function addNewDevices(){
     newFlag=false
     while [ true ]
     do
+        #Get devices UUID's but exclude internal storage devices
         for deviceID in $(lsblk -i -o name,uuid | egrep -v "*-sda" | egrep "*-sd*" | cut -d " " -f 2)
         do
             newFlag=true
@@ -53,7 +54,7 @@ function YELLOWTAIL(){
     done
 }
 
-#YELLOWTAIL $myUSB
+YELLOWTAIL $myUSB
 
-readFSTAB
-addNewDevices
+#readFSTAB
+#addNewDevices
